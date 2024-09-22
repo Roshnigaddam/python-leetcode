@@ -82,4 +82,19 @@ class Solution:
 
 #case 4 for a very long array timeout error
 
+#correct approach 
+
+# use default dictionary to map strings to sorted string
+
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        
+        anagrams_list = defaultdict(list)
+
+
+        for x in strs:
+            sorted_x = ''.join(sorted(x))
+            anagrams_list[sorted_x].append(x)
+
+        return anagrams_list.values()
 
