@@ -1,3 +1,5 @@
+#https://docs.google.com/document/d/1jNYE1Db2hnhIvK1Fl_bpjuhZZ-HXJWY2hrUaNveLZXs/edit
+
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:
         
