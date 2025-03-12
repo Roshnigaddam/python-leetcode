@@ -1,100 +1,21 @@
-#approach 1 : brute force: xxxxx - error - array index out of bounds:
-
-#code was:
+#dictionary/hashmap - you are gorouping anagrams
 
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
         
-        list1 = []
-        list1.append([strs[0]])
-        print(list1)
-        for i in range(len(strs)):
+        #dictionary key - sorted string value - list of anagrams
+        anagram_map = {}
 
+        #for each word in the list:
+        for word in strs:
+            #sort the characters in the word
+            sorted_word = ''.join(sorted(word))
 
-            j=i+1
-            list1.append([strs[i]])     #------error IndexError: list index out of range
-            while(j < len(strs)):
-                if(self.isAnagram(strs[i],strs[j])):
-                    list1[i].append(strs[j])
-                    strs.remove(strs[j])
-                j+=1
-        return list1
+            #if this key does not exist in the map and create a list
+            if sorted_word not in anagram_map:
+                anagram_map[sorted_word] = []
 
-    def isAnagram(self, str1: str, str2: str) -> bool:
-        count = defaultdict(int)
-        for x in str1:
-            count[x]+=1
-        for x in str2:
-            count[x]-=1
-        
-        for val in count.values():
-            if val > 0:
-                return False
-
-        return True
-
-#error explaination : when I am removing elements from list, so when i am trying to append at index it is out of range
-
-#correction by adding flags for grouped elements instead of removing elements grouped --- xxx time out error
-
-class Solution:
-    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        
-        list1 = []
-        
-        grouped = [False]*len(strs)
-        
-        for i in range(len(strs)):
-            if(grouped[i]):
-                    continue
-            new_group = [strs[i]]
-            j=i+1
+            #add the current word to the corresponsing list
+            anagram_map[sorted_word].append(word)
+        return list(anagram_map.values())
             
-            grouped[i] = True
-            while(j < len(strs)):
-                
-                if(self.isAnagram(strs[i],strs[j])):
-                    new_group.append(strs[j])
-                    grouped[j]=True
-                    
-                j+=1
-            list1.append(new_group)
-        return list1
-
-    def isAnagram(self, str1: str, str2: str) -> bool:
-
-        # if str1 == "" and str2 == "":
-        #     return True
-        # # If only one is empty, they are not anagrams
-        # if len(str1) != len(str2):
-        #     return False
-        count = defaultdict(int)
-        for x in str1:
-            count[x]+=1
-        for x in str2:
-            count[x]-=1
-        
-        for val in count.values():
-            if val > 0:
-                return False
-
-        return True
-
-#case 4 for a very long array timeout error
-
-#correct approach 
-
-# use default dictionary to map strings to sorted string
-
-class Solution:
-    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        
-        anagrams_list = defaultdict(list)
-
-
-        for x in strs:
-            sorted_x = ''.join(sorted(x))
-            anagrams_list[sorted_x].append(x)
-
-        return anagrams_list.values()
-
