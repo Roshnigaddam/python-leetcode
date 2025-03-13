@@ -26,4 +26,27 @@ class Solution:
                     res.append(j)
         
         return res
+####or use min heap
 
+import heapq
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        
+    #use a hashmap to store the elements and the frquesncies
+
+        freq_map = {}
+        for num in nums:
+            freq_map[num] = freq_map.get(num,0)+1
+
+        #use a min-heap, push ( freq, number ) onto the min heap and we will pop the root 
+        #if incoming elements frequency is higher
+
+        min_heap = []
+
+        for num, freq in freq_map.items():
+            heapq.heappush(min_heap,(freq,num))
+            if(len(min_heap) > k):
+                heapq.heappop(min_heap)
+
+
+        return [num for (freq,num) in min_heap]
