@@ -1,0 +1,21 @@
+
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        char_map = {} # sliding window + hash map approach for longest substring without repeat characters, to keep trach of count of characters
+
+        #two pointers l will be at the start of window, we slowly increment right to check for duplicates 
+        l=0    
+        max_length = 0
+
+        for right in range(0,len(s)):
+            current_char = s[right]
+
+            if current_char in char_map and char_map[current_char] >= l:
+                l = char_map[current_char] + 1   #we shrink the window by increment l from the last occurence index
+            
+            char_map[current_char] = right
+
+            window_size = right - l + 1
+
+            max_length = max(max_length, window_size)
+        return max_length
