@@ -1,16 +1,29 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        
-        num_map = {}
-        
+        hashmap = {}
+
         for i in range(len(nums)):
-            num_map[nums[i]] = i
-        print(num_map)
-        for i in range(len(nums)):
-             complement = target - nums[i]
-             if complement in nums and num_map[complement]!=i:
-                 return [i,num_map[complement]]
-                 
+            complement = target - nums[i]
+
+            #if complemnt and number are same we should be able to return different      indexes Ex: nums = [3,3], target = 6
+            if complement in hashmap and i!=hashmap[complement] :
+                return [i, hashmap[complement]]
+            #so for at this point {3:0} will become {3:1}
+            hashmap[nums[i]] = i
+        
+        return []
+
+#---------------
+#time complexity
+# Complexity Analysis
+
+# Time complexity: O(n).
+# We traverse the list containing n elements only once. Each lookup in the table costs only O(1) time.
+
+# Space complexity: O(n).
+# The extra space required depends on the number of items stored in the hash table, which stores at most n elements.
+
+#---------------
 # an important note:
 # dictionary/hashmap/hashset keys cannot be duplicate
 
@@ -23,4 +36,4 @@ class Solution:
 
 
 # so when nums = [5,5] and given that there is only 1 solution 
-# nums_map would be -> {3:1}
+# nums_map would be -> {5:1}
